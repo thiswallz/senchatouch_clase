@@ -16,14 +16,13 @@ Ext.define('c1.view.Login', {
     ],
     //funcion que llama a signInCommand del controller Login
     onLogInButtonTap: function () {
-
         var me = this,
             usernameField = me.down('#userNameTextField'),
             passwordField = me.down('#passwordTextField'),
             label = me.down('#signInFailedLabel'),
             username = usernameField.getValue(),
             password = passwordField.getValue();
-
+        //ocultamos mensaje de error
         label.hide();
 
         var task = Ext.create('Ext.util.DelayedTask', function () {
@@ -49,6 +48,7 @@ Ext.define('c1.view.Login', {
         //como esta oculto el label, le hacemos un "show" para mostrarlo
         label.show();
     },
+    //configs son los items principales de la vista
     config: {
         //posicion de los menubar top || bottom
         tabBarPosition: 'bottom',
@@ -65,11 +65,13 @@ Ext.define('c1.view.Login', {
                     {
                         xtype: 'image',
                         src: 'resources/img/lock.png',
+                        //pequeña verificacion de orientacion para cambiar los margenes y tamaños
                         style: Ext.Viewport.getOrientation() == 'portrait' ? 'width:80px;height:80px;margin:auto' : 'width:40px;height:40px;margin:auto'
                     },
                     {
                         xtype: 'label',
                         html: 'Login ha fallado.',
+                        //itemId identificador unico para mostrar un texto si falla el login
                         itemId: 'signInFailedLabel',
                         hidden: true,
                         hideAnimation: 'fadeOut',
@@ -99,6 +101,7 @@ Ext.define('c1.view.Login', {
                     {
                         xtype: 'button',
                         itemId: 'logInButton',
+                        //estilo del boton 'normal', 'back', 'round', 'action', 'confirm' y 'forward'
                         ui: 'action',
                         padding: '10px',
                         text: 'Log In'
@@ -106,9 +109,13 @@ Ext.define('c1.view.Login', {
                 ]
             }]
         }],
+        //escucha eventos en la vista, un puente entre el boton y alguna funcion
         listeners: [{
+            //itemid del boton escuchado
             delegate: '#logInButton',
+            //evento
             event: 'tap',
+            //funcion derivada
             fn: 'onLogInButtonTap'
         }]
     }
